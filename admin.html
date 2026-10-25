@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Panel — MediCares</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="shared.css"/>
+</head>
+<body>
+
+<div class="sidebar" style="background:#1a2b4a">
+  <div class="logo"><i class="fa fa-shield-halved"></i> Admin Panel</div>
+  <nav>
+    <a href="#" class="active" onclick="show('overview',this)"><i class="fa fa-gauge"></i><span>Overview</span></a>
+    <a href="#" onclick="show('users',this)"><i class="fa fa-users-gear"></i><span>User Management</span></a>
+    <a href="#" onclick="show('doctors-mgmt',this)"><i class="fa fa-user-doctor"></i><span>Doctors</span></a>
+    <a href="#" onclick="show('patients-mgmt',this)"><i class="fa fa-user-injured"></i><span>Patients</span></a>
+    <a href="#" onclick="show('departments',this)"><i class="fa fa-building-columns"></i><span>Departments</span></a>
+    <a href="#" onclick="show('billing-mgmt',this)"><i class="fa fa-file-invoice-dollar"></i><span>Billing</span></a>
+    <a href="#" onclick="show('audit',this)"><i class="fa fa-list-check"></i><span>Audit Logs</span></a>
+    <a href="#" onclick="show('settings',this)"><i class="fa fa-gear"></i><span>Settings</span></a>
+    <a href="index.html"><i class="fa fa-hospital"></i><span>Main HMS</span></a>
+  </nav>
+  <div class="sidebar-footer">
+    <a href="logout.html"><i class="fa fa-right-from-bracket"></i><span>Logout</span></a>
+  </div>
+</div>
+
+<div class="main">
+  <header>
+    <div class="header-left">
+      <h2 id="page-title">Admin Overview</h2>
+      <div class="live-clock" id="clock"></div>
+    </div>
+    <div class="header-right">
+      <div class="role-badge admin-badge"><i class="fa fa-shield-halved"></i> Administrator</div>
+      <div class="user-chip"><i class="fa fa-circle-user"></i> <span id="admin-name">Admin</span></div>
+      <a href="logout.html" class="btn btn-sm-red"><i class="fa fa-right-from-bracket"></i> Logout</a>
+    </div>
+  </header>
+
+  <!-- Overview -->
+  <section id="overview" class="section active">
+    <div class="stats-grid-6">
+      <div class="stat-card blue"><i class="fa fa-users"></i><div><h3>1,240</h3><p>Total Patients</p></div></div>
+      <div class="stat-card green"><i class="fa fa-user-doctor"></i><div><h3>86</h3><p>Doctors</p></div></div>
+      <div class="stat-card orange"><i class="fa fa-calendar-check"></i><div><h3>320</h3><p>Today's Appts</p></div></div>
+      <div class="stat-card red"><i class="fa fa-bed"></i><div><h3>54</h3><p>Beds Available</p></div></div>
+      <div class="stat-card purple"><i class="fa fa-indian-rupee-sign"></i><div><h3>₹40L</h3><p>Monthly Revenue</p></div></div>
+      <div class="stat-card teal"><i class="fa fa-users-gear"></i><div><h3>24</h3><p>Staff Online</p></div></div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3><i class="fa fa-chart-line"></i> System Activity</h3>
+        <div class="activity-list" id="activity-list">
+          <div class="activity-item"><span class="dot green"></span><div><strong>New patient registered</strong><small>Alice Johnson — 2 mins ago</small></div></div>
+          <div class="activity-item"><span class="dot blue"></span><div><strong>Appointment booked</strong><small>Bob Smith with Dr. Kumar — 5 mins ago</small></div></div>
+          <div class="activity-item"><span class="dot orange"></span><div><strong>Invoice generated</strong><small>INV-0045 — ₹1,00,000 — 12 mins ago</small></div></div>
+          <div class="activity-item"><span class="dot red"></span><div><strong>Critical alert</strong><small>Patient David Lee — ICU — 18 mins ago</small></div></div>
+          <div class="activity-item"><span class="dot teal"></span><div><strong>Doctor logged in</strong><small>Dr. Sharma — 22 mins ago</small></div></div>
+          <div class="activity-item"><span class="dot purple"></span><div><strong>Inventory updated</strong><small>Paracetamol restocked — 30 mins ago</small></div></div>
+        </div>
+      </div>
+      <div class="card">
+        <h3><i class="fa fa-circle-exclamation"></i> System Alerts</h3>
+        <div class="alert-list">
+          <div class="alert-item red"><i class="fa fa-triangle-exclamation"></i><div><strong>Critical Patient</strong><p>David Lee — ICU Bed 3 — Immediate attention required</p></div></div>
+          <div class="alert-item orange"><i class="fa fa-pills"></i><div><strong>Low Stock</strong><p>Paracetamol — 12 units remaining</p></div></div>
+          <div class="alert-item orange"><i class="fa fa-pills"></i><div><strong>Low Stock</strong><p>Insulin — 8 units remaining</p></div></div>
+          <div class="alert-item blue"><i class="fa fa-calendar-xmark"></i><div><strong>Missed Appointment</strong><p>3 patients missed appointments today</p></div></div>
+          <div class="alert-item green"><i class="fa fa-circle-check"></i><div><strong>Backup Complete</strong><p>System backup completed at 02:00 AM</p></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-3" style="margin-top:18px">
+      <div class="card">
+        <h3><i class="fa fa-user-doctor"></i> Top Doctors Today</h3>
+        <table><thead><tr><th>Doctor</th><th>Specialty</th><th>Patients</th></tr></thead>
+        <tbody>
+          <tr><td>Dr. Mehta</td><td>Cardiology</td><td>18</td></tr>
+          <tr><td>Dr. Patel</td><td>Endocrinology</td><td>14</td></tr>
+          <tr><td>Dr. Kumar</td><td>Cardiology</td><td>12</td></tr>
+          <tr><td>Dr. Singh</td><td>Orthopedics</td><td>10</td></tr>
+        </tbody></table>
+      </div>
+      <div class="card">
+        <h3><i class="fa fa-file-invoice-dollar"></i> Revenue Breakdown</h3>
+        <div class="rev-list">
+          <div class="rev-row"><span>OPD Consultations</span><strong>₹10,32,000</strong></div>
+          <div class="rev-row"><span>Surgeries</span><strong>₹15,18,000</strong></div>
+          <div class="rev-row"><span>Lab Tests</span><strong>₹5,66,000</strong></div>
+          <div class="rev-row"><span>Pharmacy</span><strong>₹4,25,000</strong></div>
+          <div class="rev-row"><span>Radiology</span><strong>₹4,59,000</strong></div>
+          <div class="rev-row total"><span>Total</span><strong>₹40,00,000</strong></div>
+        </div>
+      </div>
+      <div class="card">
+        <h3><i class="fa fa-bed"></i> Ward Status</h3>
+        <div class="ward-list">
+          <div class="ward-row"><span>General Ward</span><div class="ward-bar"><div class="bar-fill blue" style="width:72%"></div></div><small>72%</small></div>
+          <div class="ward-row"><span>ICU</span><div class="ward-bar"><div class="bar-fill red" style="width:90%"></div></div><small>90%</small></div>
+          <div class="ward-row"><span>Pediatrics</span><div class="ward-bar"><div class="bar-fill green" style="width:45%"></div></div><small>45%</small></div>
+          <div class="ward-row"><span>Maternity</span><div class="ward-bar"><div class="bar-fill orange" style="width:60%"></div></div><small>60%</small></div>
+          <div class="ward-row"><span>Surgery</span><div class="ward-bar"><div class="bar-fill purple" style="width:55%"></div></div><small>55%</small></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- User Management -->
+  <section id="users" class="section">
+    <div class="card">
+      <div class="section-header">
+        <h3><i class="fa fa-users-gear"></i> User Management</h3>
+        <button class="btn" onclick="openUserModal()"><i class="fa fa-plus"></i> Add User</button>
+      </div>
+      <table>
+        <thead><tr><th>ID</th><th>Name</th><th>Role</th><th>Email</th><th>Last Login</th><th>Status</th><th>Actions</th></tr></thead>
+        <tbody>
+          <tr><td>U001</td><td>Admin User</td><td><span class="badge purple">Admin</span></td><td>admin@medicare.com</td><td>Today 09:00</td><td><span class="badge green">Active</span></td><td><button class="btn-icon blue"><i class="fa fa-pen"></i></button> <button class="btn-icon red"><i class="fa fa-trash"></i></button></td></tr>
+          <tr><td>U002</td><td>Dr. Sharma</td><td><span class="badge blue">Doctor</span></td><td>sharma@medicare.com</td><td>Today 08:30</td><td><span class="badge green">Active</span></td><td><button class="btn-icon blue"><i class="fa fa-pen"></i></button> <button class="btn-icon red"><i class="fa fa-trash"></i></button></td></tr>
+          <tr><td>U003</td><td>Dr. Patel</td><td><span class="badge blue">Doctor</span></td><td>patel@medicare.com</td><td>Today 08:45</td><td><span class="badge green">Active</span></td><td><button class="btn-icon blue"><i class="fa fa-pen"></i></button> <button class="btn-icon red"><i class="fa fa-trash"></i></button></td></tr>
+          <tr><td>U004</td><td>Receptionist</td><td><span class="badge teal">Receptionist</span></td><td>reception@medicare.com</td><td>Today 07:55</td><td><span class="badge green">Active</span></td><td><button class="btn-icon blue"><i class="fa fa-pen"></i></button> <button class="btn-icon red"><i class="fa fa-trash"></i></button></td></tr>
+          <tr><td>U005</td><td>Dr. Kumar</td><td><span class="badge blue">Doctor</span></td><td>kumar@medicare.com</td><td>Yesterday</td><td><span class="badge orange">Inactive</span></td><td><button class="btn-icon blue"><i class="fa fa-pen"></i></button> <button class="btn-icon red"><i class="fa fa-trash"></i></button></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Doctors Management -->
+  <section id="doctors-mgmt" class="section">
+    <div class="card">
+      <div class="section-header"><h3><i class="fa fa-user-doctor"></i> Doctors Management</h3><button class="btn"><i class="fa fa-plus"></i> Add Doctor</button></div>
+      <table>
+        <thead><tr><th>ID</th><th>Name</th><th>Specialty</th><th>Exp</th><th>Patients Today</th><th>Status</th><th>Actions</th></tr></thead>
+        <tbody>
+          <tr><td>D001</td><td>Dr. Patel</td><td>Endocrinology</td><td>12 yrs</td><td>14</td><td><span class="badge green">Available</span></td><td><button class="btn-icon blue"><i class="fa fa-pen"></i></button> <button class="btn-icon red"><i class="fa fa-trash"></i></button></td></tr>
+          <tr><td>D002</td><td>Dr. Kumar</td><td>Cardiology</td><td>18 yrs</td><td>12</td><td><span class="badge green">Available</span></td><td><button class="btn-icon blue"><i class="fa fa-pen"></i></button> <button class="btn-icon red"><i class="fa fa-trash"></i></button></td></tr>
+          <tr><td>D003</td><td>Dr. Singh</td><td>Orthopedics</td><td>9 yrs</td><td>0</td><td><span class="badge orange">On Leave</span></td><td><button class="btn-icon blue"><i class="fa fa-pen"></i></button> <button class="btn-icon red"><i class="fa fa-trash"></i></button></td></tr>
+          <tr><td>D004</td><td>Dr. Mehta</td><td>Cardiology</td><td>22 yrs</td><td>18</td><td><span class="badge green">Available</span></td><td><button class="btn-icon blue"><i class="fa fa-pen"></i></button> <button class="btn-icon red"><i class="fa fa-trash"></i></button></td></tr>
+          <tr><td>D005</td><td>Dr. Sharma</td><td>Neurology</td><td>15 yrs</td><td>9</td><td><span class="badge green">Available</span></td><td><button class="btn-icon blue"><i class="fa fa-pen"></i></button> <button class="btn-icon red"><i class="fa fa-trash"></i></button></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Patients Management -->
+  <section id="patients-mgmt" class="section">
+    <div class="card">
+      <div class="section-header"><h3><i class="fa fa-user-injured"></i> All Patients</h3><button class="btn"><i class="fa fa-plus"></i> Add Patient</button></div>
+      <table>
+        <thead><tr><th>ID</th><th>Name</th><th>Age</th><th>Condition</th><th>Doctor</th><th>Ward</th><th>Status</th><th>Actions</th></tr></thead>
+        <tbody>
+          <tr><td>P001</td><td>Alice Johnson</td><td>34</td><td>Diabetes</td><td>Dr. Patel</td><td>General</td><td><span class="badge green">Stable</span></td><td><button class="btn-icon blue"><i class="fa fa-pen"></i></button> <button class="btn-icon red"><i class="fa fa-trash"></i></button></td></tr>
+          <tr><td>P002</td><td>Bob Smith</td><td>52</td><td>Hypertension</td><td>Dr. Kumar</td><td>General</td><td><span class="badge orange">Monitoring</span></td><td><button class="btn-icon blue"><i class="fa fa-pen"></i></button> <button class="btn-icon red"><i class="fa fa-trash"></i></button></td></tr>
+          <tr><td>P003</td><td>Carol White</td><td>28</td><td>Fracture</td><td>Dr. Singh</td><td>Ortho</td><td><span class="badge blue">Recovering</span></td><td><button class="btn-icon blue"><i class="fa fa-pen"></i></button> <button class="btn-icon red"><i class="fa fa-trash"></i></button></td></tr>
+          <tr><td>P004</td><td>David Lee</td><td>67</td><td>Cardiac Arrest</td><td>Dr. Mehta</td><td>ICU</td><td><span class="badge red">Critical</span></td><td><button class="btn-icon blue"><i class="fa fa-pen"></i></button> <button class="btn-icon red"><i class="fa fa-trash"></i></button></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Departments -->
+  <section id="departments" class="section">
+    <div class="dept-admin-grid">
+      <div class="card dept-admin-card blue"><i class="fa fa-heart-pulse"></i><h4>Cardiology</h4><p>8 Doctors</p><p>42 Patients</p><span class="badge green">Active</span></div>
+      <div class="card dept-admin-card green"><i class="fa fa-brain"></i><h4>Neurology</h4><p>5 Doctors</p><p>28 Patients</p><span class="badge green">Active</span></div>
+      <div class="card dept-admin-card orange"><i class="fa fa-bone"></i><h4>Orthopedics</h4><p>6 Doctors</p><p>35 Patients</p><span class="badge green">Active</span></div>
+      <div class="card dept-admin-card red"><i class="fa fa-baby"></i><h4>Pediatrics</h4><p>7 Doctors</p><p>50 Patients</p><span class="badge green">Active</span></div>
+      <div class="card dept-admin-card purple"><i class="fa fa-eye"></i><h4>Ophthalmology</h4><p>4 Doctors</p><p>20 Patients</p><span class="badge green">Active</span></div>
+      <div class="card dept-admin-card teal"><i class="fa fa-lungs"></i><h4>Pulmonology</h4><p>3 Doctors</p><p>18 Patients</p><span class="badge orange">Partial</span></div>
+    </div>
+  </section>
+
+  <!-- Billing -->
+  <section id="billing-mgmt" class="section">
+    <div class="card">
+      <div class="section-header"><h3><i class="fa fa-file-invoice-dollar"></i> Billing Management</h3><button class="btn"><i class="fa fa-plus"></i> New Invoice</button></div>
+      <div class="billing-summary">
+        <div class="bs-card green"><h3>₹27,00,000</h3><p>Collected</p></div>
+        <div class="bs-card orange"><h3>₹7,66,000</h3><p>Pending</p></div>
+        <div class="bs-card red"><h3>₹5,34,000</h3><p>Overdue</p></div>
+        <div class="bs-card blue"><h3>₹40,00,000</h3><p>Total Billed</p></div>
+      </div>
+      <table style="margin-top:16px">
+        <thead><tr><th>Invoice</th><th>Patient</th><th>Date</th><th>Service</th><th>Amount</th><th>Status</th><th>Actions</th></tr></thead>
+        <tbody>
+          <tr><td>INV-001</td><td>Alice Johnson</td><td>2025-07-10</td><td>OPD Consultation</td><td>₹37,500</td><td><span class="badge green">Paid</span></td><td><button class="btn-icon blue"><i class="fa fa-eye"></i></button></td></tr>
+          <tr><td>INV-002</td><td>Bob Smith</td><td>2025-07-11</td><td>Surgery</td><td>₹1,00,000</td><td><span class="badge orange">Pending</span></td><td><button class="btn-icon blue"><i class="fa fa-eye"></i></button></td></tr>
+          <tr><td>INV-003</td><td>Carol White</td><td>2025-07-12</td><td>Physiotherapy</td><td>₹65,000</td><td><span class="badge green">Paid</span></td><td><button class="btn-icon blue"><i class="fa fa-eye"></i></button></td></tr>
+          <tr><td>INV-004</td><td>David Lee</td><td>2025-07-13</td><td>ICU Charges</td><td>₹2,92,000</td><td><span class="badge red">Overdue</span></td><td><button class="btn-icon blue"><i class="fa fa-eye"></i></button></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Audit Logs -->
+  <section id="audit" class="section">
+    <div class="card">
+      <div class="section-header"><h3><i class="fa fa-list-check"></i> Audit Logs</h3><button class="btn btn-outline"><i class="fa fa-download"></i> Export</button></div>
+      <table>
+        <thead><tr><th>Time</th><th>User</th><th>Role</th><th>Action</th><th>Module</th><th>IP Address</th></tr></thead>
+        <tbody>
+          <tr><td>09:02 AM</td><td>Admin</td><td><span class="badge purple">Admin</span></td><td>Added patient P005</td><td>Patients</td><td>192.168.1.10</td></tr>
+          <tr><td>08:55 AM</td><td>Dr. Sharma</td><td><span class="badge blue">Doctor</span></td><td>Updated prescription</td><td>Medical Records</td><td>192.168.1.12</td></tr>
+          <tr><td>08:45 AM</td><td>Reception</td><td><span class="badge teal">Receptionist</span></td><td>Booked appointment A012</td><td>Appointments</td><td>192.168.1.15</td></tr>
+          <tr><td>08:30 AM</td><td>Admin</td><td><span class="badge purple">Admin</span></td><td>Generated invoice INV-004</td><td>Billing</td><td>192.168.1.10</td></tr>
+          <tr><td>08:10 AM</td><td>Dr. Patel</td><td><span class="badge blue">Doctor</span></td><td>Discharged patient P002</td><td>Patients</td><td>192.168.1.14</td></tr>
+          <tr><td>07:55 AM</td><td>Reception</td><td><span class="badge teal">Receptionist</span></td><td>Registered new patient</td><td>Patients</td><td>192.168.1.15</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Settings -->
+  <section id="settings" class="section">
+    <div class="grid-2">
+      <div class="card">
+        <h3><i class="fa fa-hospital"></i> Hospital Information</h3>
+        <div class="settings-form">
+          <label>Hospital Name</label><input type="text" value="MediCare General Hospital"/>
+          <label>Address</label><input type="text" value="Plot 42, Health City Road, Hyderabad"/>
+          <label>Phone</label><input type="text" value="+91 800-123-4567"/>
+          <label>Email</label><input type="text" value="info@medicare-hms.com"/>
+          <label>Website</label><input type="text" value="www.medicare-hms.com"/>
+          <button class="btn" style="margin-top:8px"><i class="fa fa-save"></i> Save Changes</button>
+        </div>
+      </div>
+      <div class="card">
+        <h3><i class="fa fa-lock"></i> Security Settings</h3>
+        <div class="settings-form">
+          <label>Session Timeout (minutes)</label><input type="number" value="30"/>
+          <label>Max Login Attempts</label><input type="number" value="5"/>
+          <label>Password Min Length</label><input type="number" value="8"/>
+          <div class="toggle-row"><span>Two-Factor Authentication</span><label class="toggle"><input type="checkbox" checked/><span class="slider"></span></label></div>
+          <div class="toggle-row"><span>Auto Backup (Daily)</span><label class="toggle"><input type="checkbox" checked/><span class="slider"></span></label></div>
+          <div class="toggle-row"><span>Email Notifications</span><label class="toggle"><input type="checkbox" checked/><span class="slider"></span></label></div>
+          <button class="btn" style="margin-top:8px"><i class="fa fa-save"></i> Save Settings</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- AI Chatbox -->
+<div id="chat-widget">
+  <div id="chat-header" onclick="toggleChat()"><i class="fa fa-robot"></i> MediBot AI <span style="margin-left:auto" id="ctoggle">▲</span></div>
+  <div id="chat-body">
+    <div id="chat-messages"><div class="msg bot">👋 Hi Admin! I can help with system stats, user management, and hospital operations.</div></div>
+    <div id="chat-input-area">
+      <input type="text" id="chat-input" placeholder="Ask anything..." onkeydown="if(event.key==='Enter')sendMsg()"/>
+      <button onclick="sendMsg()"><i class="fa fa-paper-plane"></i></button>
+    </div>
+  </div>
+</div>
+
+<script src="shared.js"></script>
+<script>
+  // Auth check
+  const u = JSON.parse(localStorage.getItem('hms_user')||'{}');
+  if (!u.role) window.location.replace('login.html');
+  if (u.role !== 'admin') window.location.replace(u.role === 'doctor' ? 'doctor.html' : 'receptionist.html');
+  document.getElementById('admin-name').textContent = u.name || 'Admin';
+
+  function show(id, el) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    document.getElementById('page-title').textContent = el ? el.querySelector('span').textContent : id;
+    if(el) el.classList.add('active');
+  }
+  function openUserModal(){ alert('Add User modal — connect to your backend'); }
+</script>
+</body>
+</html>

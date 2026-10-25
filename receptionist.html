@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Receptionist — MediCare HMS</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="shared.css"/>
+</head>
+<body>
+
+<div class="sidebar" style="background:#4a1942">
+  <div class="logo"><i class="fa fa-headset"></i> Front Desk</div>
+  <nav>
+    <a href="#" class="active" onclick="show('overview',this)"><i class="fa fa-gauge"></i><span>Overview</span></a>
+    <a href="#" onclick="show('register',this)"><i class="fa fa-user-plus"></i><span>Register Patient</span></a>
+    <a href="#" onclick="show('appointments',this)"><i class="fa fa-calendar-plus"></i><span>Appointments</span></a>
+    <a href="#" onclick="show('queue',this)"><i class="fa fa-list-ol"></i><span>Patient Queue</span></a>
+    <a href="#" onclick="show('billing',this)"><i class="fa fa-file-invoice-dollar"></i><span>Billing</span></a>
+    <a href="#" onclick="show('bed-mgmt',this)"><i class="fa fa-bed"></i><span>Bed Management</span></a>
+    <a href="#" onclick="show('visitors',this)"><i class="fa fa-person-walking-arrow-right"></i><span>Visitor Log</span></a>
+    <a href="index.html"><i class="fa fa-hospital"></i><span>Main HMS</span></a>
+  </nav>
+  <div class="sidebar-footer">
+    <a href="logout.html"><i class="fa fa-right-from-bracket"></i><span>Logout</span></a>
+  </div>
+</div>
+
+<div class="main">
+  <header>
+    <div class="header-left">
+      <h2 id="page-title">Front Desk Overview</h2>
+      <div class="live-clock" id="clock"></div>
+    </div>
+    <div class="header-right">
+      <div class="role-badge recep-badge"><i class="fa fa-headset"></i> Receptionist</div>
+      <div class="user-chip"><i class="fa fa-circle-user"></i> <span id="rec-name">Receptionist</span></div>
+      <a href="logout.html" class="btn btn-sm-red"><i class="fa fa-right-from-bracket"></i> Logout</a>
+    </div>
+  </header>
+
+  <!-- Overview -->
+  <section id="overview" class="section active">
+    <div class="stats-grid-4">
+      <div class="stat-card blue"><i class="fa fa-users"></i><div><h3>28</h3><p>Patients Today</p></div></div>
+      <div class="stat-card green"><i class="fa fa-calendar-check"></i><div><h3>14</h3><p>Appointments Done</p></div></div>
+      <div class="stat-card orange"><i class="fa fa-hourglass-half"></i><div><h3>6</h3><p>In Queue</p></div></div>
+      <div class="stat-card red"><i class="fa fa-bed"></i><div><h3>54</h3><p>Beds Available</p></div></div>
+    </div>
+
+    <div class="grid-2">
+      <!-- Live Queue -->
+      <div class="card">
+        <div class="section-header"><h3><i class="fa fa-list-ol"></i> Live Patient Queue</h3><button class="btn btn-sm" onclick="show('queue',null)">View All</button></div>
+        <div class="queue-list">
+          <div class="queue-item current"><div class="q-num current-num">01</div><div class="q-info"><strong>Alice Johnson</strong><span>Dr. Patel — OPD Room 3</span></div><span class="badge blue">In Consultation</span></div>
+          <div class="queue-item"><div class="q-num">02</div><div class="q-info"><strong>Bob Smith</strong><span>Dr. Kumar — OPD Room 1</span></div><span class="badge orange">Waiting</span></div>
+          <div class="queue-item"><div class="q-num">03</div><div class="q-info"><strong>Carol White</strong><span>Dr. Singh — OPD Room 2</span></div><span class="badge orange">Waiting</span></div>
+          <div class="queue-item"><div class="q-num">04</div><div class="q-info"><strong>David Lee</strong><span>Dr. Mehta — Emergency</span></div><span class="badge red">Emergency</span></div>
+          <div class="queue-item"><div class="q-num">05</div><div class="q-info"><strong>Eva Brown</strong><span>Dr. Sharma — OPD Room 4</span></div><span class="badge orange">Waiting</span></div>
+        </div>
+      </div>
+
+      <!-- Today's Appointments -->
+      <div class="card">
+        <div class="section-header"><h3><i class="fa fa-calendar-check"></i> Today's Appointments</h3><button class="btn btn-sm" onclick="show('appointments',null)">Book New</button></div>
+        <table>
+          <thead><tr><th>Time</th><th>Patient</th><th>Doctor</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>09:00</td><td>Alice Johnson</td><td>Dr. Patel</td><td><span class="badge green">Done</span></td></tr>
+            <tr><td>10:30</td><td>Bob Smith</td><td>Dr. Kumar</td><td><span class="badge blue">Active</span></td></tr>
+            <tr><td>11:00</td><td>Carol White</td><td>Dr. Singh</td><td><span class="badge orange">Waiting</span></td></tr>
+            <tr><td>02:00</td><td>David Lee</td><td>Dr. Mehta</td><td><span class="badge orange">Upcoming</span></td></tr>
+            <tr><td>03:30</td><td>Eva Brown</td><td>Dr. Sharma</td><td><span class="badge orange">Upcoming</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="grid-3" style="margin-top:18px">
+      <div class="card">
+        <h3><i class="fa fa-bed"></i> Bed Availability</h3>
+        <div class="bed-summary">
+          <div class="bed-item green"><h3>54</h3><p>Available</p></div>
+          <div class="bed-item red"><h3>146</h3><p>Occupied</p></div>
+          <div class="bed-item orange"><h3>8</h3><p>Reserved</p></div>
+        </div>
+      </div>
+      <div class="card">
+        <h3><i class="fa fa-file-invoice-dollar"></i> Billing Today</h3>
+        <div class="rev-list">
+          <div class="rev-row"><span>Invoices Generated</span><strong>12</strong></div>
+          <div class="rev-row"><span>Collected</span><strong class="green-text">₹3,50,000</strong></div>
+          <div class="rev-row"><span>Pending</span><strong class="orange-text">₹1,50,000</strong></div>
+          <div class="rev-row total"><span>Total Billed</span><strong>₹5,00,000</strong></div>
+        </div>
+      </div>
+      <div class="card">
+        <h3><i class="fa fa-bell"></i> Alerts</h3>
+        <div class="notif-simple">
+          <div class="ns-item"><i class="fa fa-triangle-exclamation red-icon"></i> Emergency patient — David Lee</div>
+          <div class="ns-item"><i class="fa fa-calendar-xmark orange-icon"></i> 2 patients missed appointments</div>
+          <div class="ns-item"><i class="fa fa-bed blue-icon"></i> ICU at 90% capacity</div>
+          <div class="ns-item"><i class="fa fa-circle-check green-icon"></i> 14 appointments completed</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Register Patient -->
+  <section id="register" class="section">
+    <div class="card" style="max-width:700px">
+      <h3><i class="fa fa-user-plus"></i> Register New Patient</h3>
+      <div class="reg-form">
+        <div class="form-row-2">
+          <div class="form-group"><label>First Name</label><input type="text" placeholder="First name"/></div>
+          <div class="form-group"><label>Last Name</label><input type="text" placeholder="Last name"/></div>
+        </div>
+        <div class="form-row-2">
+          <div class="form-group"><label>Date of Birth</label><input type="date"/></div>
+          <div class="form-group"><label>Gender</label><select><option>Male</option><option>Female</option><option>Other</option></select></div>
+        </div>
+        <div class="form-row-2">
+          <div class="form-group"><label>Phone Number</label><input type="tel" placeholder="+91 XXXXX XXXXX"/></div>
+          <div class="form-group"><label>Email</label><input type="email" placeholder="patient@email.com"/></div>
+        </div>
+        <div class="form-group"><label>Address</label><input type="text" placeholder="Full address"/></div>
+        <div class="form-row-2">
+          <div class="form-group"><label>Blood Group</label><select><option>A+</option><option>A-</option><option>B+</option><option>B-</option><option>O+</option><option>O-</option><option>AB+</option><option>AB-</option></select></div>
+          <div class="form-group"><label>Emergency Contact</label><input type="tel" placeholder="Emergency phone"/></div>
+        </div>
+        <div class="form-row-2">
+          <div class="form-group"><label>Assign Doctor</label>
+            <select><option>Dr. Patel — Endocrinology</option><option>Dr. Kumar — Cardiology</option><option>Dr. Singh — Orthopedics</option><option>Dr. Mehta — Cardiology</option><option>Dr. Sharma — Neurology</option></select>
+          </div>
+          <div class="form-group"><label>Visit Type</label><select><option>OPD</option><option>Emergency</option><option>Admission</option></select></div>
+        </div>
+        <div class="form-group"><label>Chief Complaint</label><textarea placeholder="Describe the patient's main complaint..." rows="3"></textarea></div>
+        <div class="form-group"><label>Insurance / Policy No.</label><input type="text" placeholder="Insurance policy number (optional)"/></div>
+        <div style="display:flex;gap:10px;margin-top:8px">
+          <button class="btn" onclick="registerPatient()"><i class="fa fa-user-plus"></i> Register Patient</button>
+          <button class="btn btn-outline" onclick="clearForm()"><i class="fa fa-rotate-left"></i> Clear</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Appointments -->
+  <section id="appointments" class="section">
+    <div class="grid-2">
+      <div class="card">
+        <h3><i class="fa fa-calendar-plus"></i> Book Appointment</h3>
+        <div class="reg-form">
+          <div class="form-group"><label>Patient Name / ID</label><input type="text" placeholder="Search patient..."/></div>
+          <div class="form-group"><label>Select Doctor</label>
+            <select><option>Dr. Patel — Endocrinology</option><option>Dr. Kumar — Cardiology</option><option>Dr. Singh — Orthopedics</option><option>Dr. Mehta — Cardiology</option><option>Dr. Sharma — Neurology</option></select>
+          </div>
+          <div class="form-row-2">
+            <div class="form-group"><label>Date</label><input type="date"/></div>
+            <div class="form-group"><label>Time Slot</label>
+              <select><option>09:00 AM</option><option>09:30 AM</option><option>10:00 AM</option><option>10:30 AM</option><option>11:00 AM</option><option>02:00 PM</option><option>02:30 PM</option><option>03:00 PM</option></select>
+            </div>
+          </div>
+          <div class="form-group"><label>Appointment Type</label><select><option>OPD Consultation</option><option>Follow-up</option><option>Emergency</option><option>Procedure</option></select></div>
+          <div class="form-group"><label>Notes</label><textarea placeholder="Any special notes..." rows="2"></textarea></div>
+          <button class="btn" onclick="bookAppt()"><i class="fa fa-calendar-check"></i> Book Appointment</button>
+        </div>
+      </div>
+      <div class="card">
+        <h3><i class="fa fa-calendar-days"></i> Upcoming Appointments</h3>
+        <table>
+          <thead><tr><th>ID</th><th>Patient</th><th>Doctor</th><th>Date</th><th>Time</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>A001</td><td>Alice Johnson</td><td>Dr. Patel</td><td>Today</td><td>09:00</td><td><span class="badge green">Done</span></td></tr>
+            <tr><td>A002</td><td>Bob Smith</td><td>Dr. Kumar</td><td>Today</td><td>10:30</td><td><span class="badge blue">Active</span></td></tr>
+            <tr><td>A003</td><td>Carol White</td><td>Dr. Singh</td><td>Today</td><td>11:00</td><td><span class="badge orange">Waiting</span></td></tr>
+            <tr><td>A004</td><td>Frank Wilson</td><td>Dr. Sharma</td><td>Tomorrow</td><td>09:00</td><td><span class="badge orange">Confirmed</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Patient Queue -->
+  <section id="queue" class="section">
+    <div class="card">
+      <div class="section-header"><h3><i class="fa fa-list-ol"></i> Patient Queue Management</h3><button class="btn btn-sm" onclick="addToQueue()"><i class="fa fa-plus"></i> Add to Queue</button></div>
+      <table>
+        <thead><tr><th>Token</th><th>Patient</th><th>Doctor</th><th>Room</th><th>Wait Time</th><th>Status</th><th>Actions</th></tr></thead>
+        <tbody id="queue-body">
+          <tr><td><span class="token-num current-num">01</span></td><td>Alice Johnson</td><td>Dr. Patel</td><td>OPD Room 3</td><td>—</td><td><span class="badge blue">In Consultation</span></td><td><button class="btn-icon green" onclick="callNext()"><i class="fa fa-check"></i></button></td></tr>
+          <tr><td><span class="token-num">02</span></td><td>Bob Smith</td><td>Dr. Kumar</td><td>OPD Room 1</td><td>15 min</td><td><span class="badge orange">Waiting</span></td><td><button class="btn-icon green"><i class="fa fa-check"></i></button></td></tr>
+          <tr><td><span class="token-num">03</span></td><td>Carol White</td><td>Dr. Singh</td><td>OPD Room 2</td><td>30 min</td><td><span class="badge orange">Waiting</span></td><td><button class="btn-icon green"><i class="fa fa-check"></i></button></td></tr>
+          <tr><td><span class="token-num">04</span></td><td>David Lee</td><td>Dr. Mehta</td><td>Emergency</td><td>—</td><td><span class="badge red">Emergency</span></td><td><button class="btn-icon green"><i class="fa fa-check"></i></button></td></tr>
+          <tr><td><span class="token-num">05</span></td><td>Eva Brown</td><td>Dr. Sharma</td><td>OPD Room 4</td><td>45 min</td><td><span class="badge orange">Waiting</span></td><td><button class="btn-icon green"><i class="fa fa-check"></i></button></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Billing -->
+  <section id="billing" class="section">
+    <div class="grid-2">
+      <div class="card">
+        <h3><i class="fa fa-file-invoice-dollar"></i> Generate Invoice</h3>
+        <div class="reg-form">
+          <div class="form-group"><label>Patient Name / ID</label><input type="text" placeholder="Search patient..."/></div>
+          <div class="form-group"><label>Service</label>
+            <select><option>OPD Consultation — ₹500</option><option>Surgery — ₹50,000+</option><option>Lab Test — ₹300</option><option>X-Ray — ₹800</option><option>ICU (per day) — ₹20,000</option><option>Pharmacy</option></select>
+          </div>
+          <div class="form-row-2">
+            <div class="form-group"><label>Amount (₹)</label><input type="number" placeholder="0.00"/></div>
+            <div class="form-group"><label>Payment Mode</label><select><option>Cash</option><option>Card</option><option>Insurance</option><option>UPI</option></select></div>
+          </div>
+          <div class="form-group"><label>Discount (%)</label><input type="number" placeholder="0" min="0" max="100"/></div>
+          <button class="btn" onclick="generateInvoice()"><i class="fa fa-file-invoice"></i> Generate Invoice</button>
+        </div>
+      </div>
+      <div class="card">
+        <h3><i class="fa fa-receipt"></i> Recent Invoices</h3>
+        <table>
+          <thead><tr><th>Invoice</th><th>Patient</th><th>Amount</th><th>Status</th><th>Action</th></tr></thead>
+          <tbody>
+            <tr><td>INV-001</td><td>Alice Johnson</td><td>₹37,500</td><td><span class="badge green">Paid</span></td><td><button class="btn-icon blue"><i class="fa fa-print"></i></button></td></tr>
+            <tr><td>INV-002</td><td>Bob Smith</td><td>₹1,00,000</td><td><span class="badge orange">Pending</span></td><td><button class="btn-icon blue"><i class="fa fa-print"></i></button></td></tr>
+            <tr><td>INV-003</td><td>Carol White</td><td>₹65,000</td><td><span class="badge green">Paid</span></td><td><button class="btn-icon blue"><i class="fa fa-print"></i></button></td></tr>
+            <tr><td>INV-004</td><td>David Lee</td><td>₹2,92,000</td><td><span class="badge red">Overdue</span></td><td><button class="btn-icon blue"><i class="fa fa-print"></i></button></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bed Management -->
+  <section id="bed-mgmt" class="section">
+    <div class="card">
+      <div class="section-header"><h3><i class="fa fa-bed"></i> Bed Management</h3></div>
+      <div class="bed-grid">
+        <div class="bed-ward"><h4>General Ward <span class="badge orange">72% Full</span></h4><div class="beds">
+          <div class="bed occupied" title="P001 - Alice Johnson">G01</div><div class="bed occupied" title="P002 - Bob Smith">G02</div>
+          <div class="bed available">G03</div><div class="bed available">G04</div>
+          <div class="bed occupied" title="P003 - Carol White">G05</div><div class="bed available">G06</div>
+          <div class="bed available">G07</div><div class="bed occupied">G08</div>
+        </div></div>
+        <div class="bed-ward"><h4>ICU <span class="badge red">90% Full</span></h4><div class="beds">
+          <div class="bed icu-occupied" title="P004 - David Lee">I01</div><div class="bed icu-occupied">I02</div>
+          <div class="bed icu-occupied">I03</div><div class="bed available">I04</div>
+          <div class="bed icu-occupied">I05</div>
+        </div></div>
+        <div class="bed-ward"><h4>Pediatrics <span class="badge green">45% Full</span></h4><div class="beds">
+          <div class="bed occupied">P01</div><div class="bed available">P02</div>
+          <div class="bed available">P03</div><div class="bed available">P04</div>
+          <div class="bed occupied">P05</div><div class="bed available">P06</div>
+        </div></div>
+      </div>
+      <div class="bed-legend"><span><span class="dot green"></span> Available</span><span><span class="dot orange"></span> Occupied</span><span><span class="dot red"></span> ICU Occupied</span></div>
+    </div>
+  </section>
+
+  <!-- Visitor Log -->
+  <section id="visitors" class="section">
+    <div class="card">
+      <div class="section-header">
+        <h3><i class="fa fa-person-walking-arrow-right"></i> Visitor Log</h3>
+        <button class="btn" onclick="addVisitor()"><i class="fa fa-plus"></i> Add Visitor</button>
+      </div>
+      <table>
+        <thead><tr><th>ID</th><th>Visitor Name</th><th>Patient</th><th>Relation</th><th>In Time</th><th>Out Time</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>V001</td><td>Mary Johnson</td><td>Alice Johnson</td><td>Daughter</td><td>10:00 AM</td><td>11:30 AM</td><td><span class="badge green">Checked Out</span></td></tr>
+          <tr><td>V002</td><td>Tom Smith</td><td>Bob Smith</td><td>Son</td><td>11:00 AM</td><td>—</td><td><span class="badge blue">Inside</span></td></tr>
+          <tr><td>V003</td><td>Sarah Lee</td><td>David Lee</td><td>Wife</td><td>09:30 AM</td><td>—</td><td><span class="badge blue">Inside</span></td></tr>
+          <tr><td>V004</td><td>James Brown</td><td>Eva Brown</td><td>Husband</td><td>02:00 PM</td><td>03:00 PM</td><td><span class="badge green">Checked Out</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>
+
+<!-- AI Chatbox -->
+<div id="chat-widget">
+  <div id="chat-header" onclick="toggleChat()"><i class="fa fa-robot"></i> MediBot AI <span style="margin-left:auto" id="ctoggle">▲</span></div>
+  <div id="chat-body">
+    <div id="chat-messages"><div class="msg bot">👋 Hi! I can help with patient registration, appointments, bed availability, and billing.</div></div>
+    <div id="chat-input-area">
+      <input type="text" id="chat-input" placeholder="Ask anything..." onkeydown="if(event.key==='Enter')sendMsg()"/>
+      <button onclick="sendMsg()"><i class="fa fa-paper-plane"></i></button>
+    </div>
+  </div>
+</div>
+
+<script src="shared.js"></script>
+<script>
+  const u = JSON.parse(localStorage.getItem('hms_user')||'{}');
+  if (!u.role) window.location.replace('login.html');
+  if (u.role !== 'receptionist') window.location.replace(u.role === 'admin' ? 'admin.html' : 'doctor.html');
+  document.getElementById('rec-name').textContent = u.name || 'Receptionist';
+
+  function show(id, el) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    document.getElementById('page-title').textContent = el ? el.querySelector('span').textContent : id;
+    if(el) el.classList.add('active');
+  }
+  function registerPatient(){ alert('Patient registered successfully! Token: P' + String(Math.floor(Math.random()*900)+100)); }
+  function clearForm(){ document.querySelectorAll('.reg-form input, .reg-form textarea').forEach(i => i.value = ''); }
+  function bookAppt(){ alert('Appointment booked successfully!'); }
+  function generateInvoice(){ alert('Invoice generated! INV-' + String(Math.floor(Math.random()*900)+100)); }
+  function addToQueue(){ alert('Patient added to queue'); }
+  function callNext(){ alert('Next patient called!'); }
+  function addVisitor(){ alert('Visitor entry form'); }
+</script>
+</body>
+</html>

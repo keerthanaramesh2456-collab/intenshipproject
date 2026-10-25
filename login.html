@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MediCares — Login</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{
+      font-family:'Segoe UI',sans-serif;min-height:100vh;display:flex;
+      background: url('https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=1600&auto=format&fit=crop') center/cover no-repeat fixed;
+      position:relative;
+    }
+    body::before{
+      content:'';
+      position:fixed;inset:0;
+      background:linear-gradient(135deg,rgba(26,43,74,0.92) 0%,rgba(145, 176, 212, 0.85) 100%);
+      z-index:0;
+    }
+    .login-left,.login-right{position:relative;z-index:1;}
+    .login-left{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;color:#fff;padding:40px;}
+    .login-left .brand{font-size:2rem;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:12px;}
+    .login-left .brand i{color:#4fc3f7;font-size:2.4rem;}
+    .login-left p{opacity:.8;font-size:1rem;max-width:320px;text-align:center;line-height:1.6;}
+    .features{margin-top:32px;display:flex;flex-direction:column;gap:14px;}
+    .features div{display:flex;align-items:center;gap:12px;font-size:.9rem;opacity:.85;}
+    .features i{color:#4fc3f7;width:20px;}
+    .login-right{width:440px;background:rgba(255,255,255,0.97);backdrop-filter:blur(12px);display:flex;flex-direction:column;justify-content:center;padding:48px 40px;box-shadow:-8px 0 40px rgba(0,0,0,0.2);}
+    .login-right h2{font-size:1.5rem;color:#1a2b4a;margin-bottom:6px;}
+    .login-right .sub{color:#777;font-size:.88rem;margin-bottom:28px;}
+    .role-tabs{display:flex;gap:8px;margin-bottom:24px;}
+    .role-tab{flex:1;padding:8px;border:2px solid #e0e0e0;border-radius:8px;background:#fff;cursor:pointer;font-size:.82rem;color:#555;text-align:center;transition:.2s;}
+    .role-tab.active{border-color:#1a2b4a;background:#1a2b4a;color:#fff;}
+    .form-group{margin-bottom:16px;}
+    .form-group label{display:block;font-size:.82rem;color:#555;margin-bottom:6px;font-weight:600;}
+    .form-group input{width:100%;padding:11px 14px;border:1.5px solid #ddd;border-radius:8px;font-size:.9rem;outline:none;transition:.2s;}
+    .form-group input:focus{border-color:#1a2b4a;}
+    .form-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;font-size:.82rem;}
+    .form-row a{color:#1565c0;text-decoration:none;}
+    .btn-login{width:100%;padding:12px;background:#1a2b4a;color:#fff;border:none;border-radius:8px;font-size:.95rem;font-weight:600;cursor:pointer;transition:.2s;}
+    .btn-login:hover{background:#2e4270;}
+    .demo-creds{margin-top:24px;background:#f5f7fa;border-radius:8px;padding:14px;}
+    .demo-creds p{font-size:.78rem;color:#555;margin-bottom:8px;font-weight:600;}
+    .demo-creds .cred{font-size:.78rem;color:#333;margin-bottom:4px;}
+    .cred span{font-weight:600;color:#1a2b4a;}
+    .error-msg{color:#c62828;font-size:.82rem;margin-bottom:12px;display:none;}
+    @media(max-width:700px){.login-left{display:none;}.login-right{width:100%;padding:32px 24px;}}
+  </style>
+</head>
+<body>
+<div class="login-left">
+  <div class="brand"><i class="fa-solid fa-hospital"></i> MediCare HMS</div>
+  <p>Comprehensive Hospital Management System for modern healthcare facilities.</p>
+  <div class="features">
+    <div><i class="fa fa-user-injured"></i> Patient Records & Management</div>
+    <div><i class="fa fa-user-doctor"></i> Doctor & Staff Directory</div>
+    <div><i class="fa fa-calendar-check"></i> Appointment Scheduling</div>
+    <div><i class="fa fa-file-invoice-dollar"></i> Billing & Invoicing</div>
+    <div><i class="fa fa-boxes-stacked"></i> Inventory Management</div>
+    <div><i class="fa fa-robot"></i> AI-Powered MediBot Assistant</div>
+  </div>
+</div>
+<div class="login-right">
+  <h2>Welcome Back</h2>
+  <p class="sub">Sign in to your account to continue</p>
+
+  <div class="role-tabs">
+    <button class="role-tab active" onclick="setRole('admin',this)">Admin</button>
+    <button class="role-tab" onclick="setRole('doctor',this)">Doctor</button>
+    <button class="role-tab" onclick="setRole('receptionist',this)">Receptionist</button>
+  </div>
+
+  <div class="error-msg" id="error-msg"><i class="fa fa-circle-exclamation"></i> Invalid username or password.</div>
+
+  <div class="form-group">
+    <label>Username</label>
+    <input type="text" id="username" placeholder="Enter username" onkeydown="if(event.key==='Enter')doLogin()"/>
+  </div>
+  <div class="form-group">
+    <label>Password</label>
+    <input type="password" id="password" placeholder="Enter password" onkeydown="if(event.key==='Enter')doLogin()"/>
+  </div>
+  <div class="form-row">
+    <label><input type="checkbox" id="remember"/> Remember me</label>
+    <a href="#">Forgot password?</a>
+  </div>
+  <button class="btn-login" onclick="doLogin()">Sign In</button>
+
+  <div class="demo-creds">
+    <p>Demo Credentials</p>
+    <div class="cred">Admin — <span>admin</span> / <span>admin123</span></div>
+    <div class="cred">Doctor — <span>doctor</span> / <span>doc123</span></div>
+    <div class="cred">Receptionist — <span>reception</span> / <span>rec123</span></div>
+  </div>
+</div>
+
+<script>
+  // If already logged in, redirect to their page
+  (function() {
+    const u = JSON.parse(localStorage.getItem('hms_user') || '{}');
+    if (u.role) {
+      const pages = { admin: 'admin.html', doctor: 'doctor.html', receptionist: 'receptionist.html' };
+      if (pages[u.role]) window.location.replace(pages[u.role]);
+    }
+  })();
+
+  let selectedRole = 'admin';
+  const users = {
+    admin: { user: 'admin', pass: 'admin123', name: 'Admin User' },
+    doctor: { user: 'doctor', pass: 'doc123', name: 'Dr. Sharma' },
+    receptionist: { user: 'reception', pass: 'rec123', name: 'Receptionist' }
+  };
+
+  function setRole(role, el) {
+    selectedRole = role;
+    document.querySelectorAll('.role-tab').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+  }
+
+  function doLogin() {
+    const u = document.getElementById('username').value.trim();
+    const p = document.getElementById('password').value.trim();
+    const cred = users[selectedRole];
+    const err = document.getElementById('error-msg');
+    if (u === cred.user && p === cred.pass) {
+      localStorage.setItem('hms_user', JSON.stringify({ name: cred.name, role: selectedRole }));
+      const pages = { admin: 'admin.html', doctor: 'doctor.html', receptionist: 'receptionist.html' };
+      window.location.href = pages[selectedRole];
+    } else {
+      err.style.display = 'block';
+      setTimeout(() => err.style.display = 'none', 3000);
+    }
+  }
+
+  // Auto-fill on demo click
+  document.querySelectorAll('.cred').forEach((el, i) => {
+    el.style.cursor = 'pointer';
+    el.title = 'Click to auto-fill';
+    el.addEventListener('click', () => {
+      const roles = ['admin','doctor','receptionist'];
+      const tabs = document.querySelectorAll('.role-tab');
+      setRole(roles[i], tabs[i]);
+      const cred = users[roles[i]];
+      document.getElementById('username').value = cred.user;
+      document.getElementById('password').value = cred.pass;
+    });
+  });
+</script>
+</body>
+</html>

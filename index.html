@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MediCare— Dashboard</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+
+<!-- Sidebar -->
+<div class="sidebar">
+  <div class="logo"><i class="fa-solid fa-hospital"></i> MediCare HMS</div>
+  <nav id="sidebar-nav">
+    <a href="#" onclick="showSection('home',this)"><i class="fa fa-house-medical"></i><span>Home</span></a>
+    <a href="#" class="active" onclick="showSection('dashboard',this)"><i class="fa fa-gauge"></i><span>Dashboard</span></a>
+    <a href="#" onclick="showSection('patients',this)"><i class="fa fa-user-injured"></i><span>Patients</span></a>
+    <a href="#" onclick="showSection('doctors',this)"><i class="fa fa-user-doctor"></i><span>Doctors</span></a>
+    <a href="#" onclick="showSection('appointments',this)"><i class="fa fa-calendar-check"></i><span>Appointments</span></a>
+    <a href="#" onclick="showSection('billing',this)"><i class="fa fa-file-invoice-dollar"></i><span>Billing</span></a>
+    <a href="#" onclick="showSection('inventory',this)"><i class="fa fa-boxes-stacked"></i><span>Inventory</span></a>
+    <a href="#" onclick="showSection('reports',this)"><i class="fa fa-chart-bar"></i><span>Reports</span></a>
+    <a href="#" onclick="showSection('staff',this)"><i class="fa fa-users"></i><span>Staff</span></a>
+  </nav>
+  <div class="sidebar-footer">
+    <a href="logout.html"><i class="fa fa-right-from-bracket"></i><span>Logout</span></a>
+  </div>
+</div>
+
+<!-- Main -->
+<div class="main">
+  <header>
+    <div class="header-left">
+      <h2 id="page-title">Dashboard</h2>
+      <div id="live-clock" class="live-clock"></div>
+    </div>
+    <div class="header-right">
+      <div class="search-box"><i class="fa fa-search"></i><input type="text" id="global-search" placeholder="Search patients, doctors..." oninput="globalSearch(this.value)"/></div>
+      <div class="notif-wrap" onclick="toggleNotif()">
+        <i class="fa fa-bell"></i>
+        <span class="notif-badge" id="notif-badge">3</span>
+        <div class="notif-dropdown" id="notif-dropdown">
+          <div class="notif-header">Notifications</div>
+          <div class="notif-item red"><i class="fa fa-circle-exclamation"></i> David Lee — Critical condition alert</div>
+          <div class="notif-item orange"><i class="fa fa-clock"></i> 5 appointments pending today</div>
+          <div class="notif-item blue"><i class="fa fa-pills"></i> Paracetamol stock low (12 units)</div>
+        </div>
+      </div>
+      <div class="user-chip" id="user-chip"><i class="fa fa-circle-user"></i> <span id="user-name">Admin</span></div>
+    </div>
+  </header>
+
+  <!-- Search Results -->
+  <div id="search-results" class="search-results" style="display:none"></div>
+
+  <!-- Home -->
+  <section id="home" class="section">
+
+    <!-- Hero Banner -->
+    <div class="home-hero">
+      <div class="home-hero-text">
+        <div class="home-badge"><i class="fa fa-shield-heart"></i> Accredited Hospital</div>
+        <h1>MediCare</h1>
+        <p>Providing compassionate, world-class healthcare to our community since 1998. Your health is our highest priority.</p>
+        <div class="home-hero-btns">
+          <button class="btn" onclick="showSection('appointments',document.querySelector('[onclick*=appointments]'))"><i class="fa fa-calendar-plus"></i> Book Appointment</button>
+          <a href="tel:+918001234567" class="btn btn-outline-white"><i class="fa fa-phone"></i> Call Now</a>
+        </div>
+      </div>
+      <div class="home-hero-img"><i class="fa fa-hospital"></i></div>
+    </div>
+
+    <!-- Quick Contact Bar -->
+    <div class="quick-contact-bar">
+      <div class="qc-item"><i class="fa fa-phone"></i><div><span>Main Reception</span><strong>+91 800-123-4567</strong></div></div>
+      <div class="qc-item"><i class="fa fa-ambulance"></i><div><span>Emergency (24/7)</span><strong>+91 800-911-0000</strong></div></div>
+      <div class="qc-item"><i class="fa fa-clock"></i><div><span>OPD Hours</span><strong>Mon–Sat: 8AM – 8PM</strong></div></div>
+      <div class="qc-item"><i class="fa fa-location-dot"></i><div><span>Location</span><strong>Hyderabad, Telangana</strong></div></div>
+    </div>
+
+    <!-- About + Stats -->
+    <div class="home-grid-2">
+      <div class="card home-about">
+        <h3><i class="fa fa-circle-info"></i> About Us</h3>
+        <p>MediCare General Hospital is a 500-bed multi-specialty hospital established in 1998. We are equipped with state-of-the-art medical technology and staffed by over 300 healthcare professionals dedicated to delivering exceptional patient care.</p>
+        <p style="margin-top:10px">We are NABH accredited and ISO 9001:2015 certified, ensuring the highest standards of quality and safety in all our services.</p>
+        <div class="about-tags">
+          <span><i class="fa fa-check-circle"></i> NABH Accredited</span>
+          <span><i class="fa fa-check-circle"></i> ISO 9001:2015</span>
+          <span><i class="fa fa-check-circle"></i> 500+ Beds</span>
+          <span><i class="fa fa-check-circle"></i> 25+ Years</span>
+        </div>
+      </div>
+      <div class="card">
+        <h3><i class="fa fa-chart-simple"></i> Hospital at a Glance</h3>
+        <div class="glance-grid">
+          <div class="glance-item blue"><h2>500+</h2><p>Beds</p></div>
+          <div class="glance-item green"><h2>300+</h2><p>Staff</p></div>
+          <div class="glance-item orange"><h2>25+</h2><p>Specialties</p></div>
+          <div class="glance-item red"><h2>1M+</h2><p>Patients Served</p></div>
+          <div class="glance-item purple"><h2>24/7</h2><p>Emergency</p></div>
+          <div class="glance-item teal"><h2>15+</h2><p>ICU Units</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Departments -->
+    <div class="card" style="margin-top:18px">
+      <h3 style="margin-bottom:16px"><i class="fa fa-stethoscope"></i> Our Departments</h3>
+      <div class="dept-grid">
+        <div class="dept-card"><i class="fa fa-heart-pulse"></i><span>Cardiology</span></div>
+        <div class="dept-card"><i class="fa fa-brain"></i><span>Neurology</span></div>
+        <div class="dept-card"><i class="fa fa-bone"></i><span>Orthopedics</span></div>
+        <div class="dept-card"><i class="fa fa-baby"></i><span>Pediatrics</span></div>
+        <div class="dept-card"><i class="fa fa-eye"></i><span>Ophthalmology</span></div>
+        <div class="dept-card"><i class="fa fa-tooth"></i><span>Dentistry</span></div>
+        <div class="dept-card"><i class="fa fa-lungs"></i><span>Pulmonology</span></div>
+        <div class="dept-card"><i class="fa fa-microscope"></i><span>Pathology</span></div>
+        <div class="dept-card"><i class="fa fa-radiation"></i><span>Radiology</span></div>
+        <div class="dept-card"><i class="fa fa-syringe"></i><span>Oncology</span></div>
+        <div class="dept-card"><i class="fa fa-venus"></i><span>Gynecology</span></div>
+        <div class="dept-card"><i class="fa fa-kidneys"></i><span>Nephrology</span></div>
+      </div>
+    </div>
+
+    <!-- Contact + Map + Hours -->
+    <div class="home-grid-3" style="margin-top:18px">
+
+      <!-- Contact Details -->
+      <div class="card">
+        <h3><i class="fa fa-address-book"></i> Contact Details</h3>
+        <div class="contact-list">
+          <div class="contact-row"><i class="fa fa-phone blue-icon"></i><div><strong>Main Reception</strong><a href="tel:+918001234567">+91 800-123-4567</a></div></div>
+          <div class="contact-row"><i class="fa fa-ambulance red-icon"></i><div><strong>Emergency</strong><a href="tel:+918009110000">+91 800-911-0000</a></div></div>
+          <div class="contact-row"><i class="fa fa-phone-volume green-icon"></i><div><strong>Appointments</strong><a href="tel:+918001112222">+91 800-111-2222</a></div></div>
+          <div class="contact-row"><i class="fa fa-fax orange-icon"></i><div><strong>Fax</strong><span>+91 800-333-4444</span></div></div>
+          <div class="contact-row"><i class="fa fa-envelope blue-icon"></i><div><strong>Email</strong><a href="mailto:info@medicare-hms.com">info@medicare-hms.com</a></div></div>
+          <div class="contact-row"><i class="fa fa-globe teal-icon"></i><div><strong>Website</strong><a href="#">www.medicare-hms.com</a></div></div>
+        </div>
+      </div>
+
+      <!-- Working Hours -->
+      <div class="card">
+        <h3><i class="fa fa-clock"></i> Working Hours</h3>
+        <div class="hours-list">
+          <div class="hours-row"><span>OPD (Mon – Fri)</span><strong>8:00 AM – 8:00 PM</strong></div>
+          <div class="hours-row"><span>OPD (Saturday)</span><strong>8:00 AM – 2:00 PM</strong></div>
+          <div class="hours-row"><span>OPD (Sunday)</span><strong class="closed">Closed</strong></div>
+          <div class="hours-row highlight"><span><i class="fa fa-ambulance"></i> Emergency</span><strong>24 / 7 / 365</strong></div>
+          <div class="hours-row"><span>ICU / NICU</span><strong>24 / 7</strong></div>
+          <div class="hours-row"><span>Pharmacy</span><strong>7:00 AM – 10:00 PM</strong></div>
+          <div class="hours-row"><span>Lab / Diagnostics</span><strong>6:00 AM – 9:00 PM</strong></div>
+          <div class="hours-row"><span>Radiology</span><strong>8:00 AM – 8:00 PM</strong></div>
+        </div>
+      </div>
+
+      <!-- Address -->
+      <div class="card">
+        <h3><i class="fa fa-location-dot"></i> Our Location</h3>
+        <div class="address-block">
+          <p><i class="fa fa-building"></i> MediCare General Hospital</p>
+          <p><i class="fa fa-road"></i> Plot No. 42, Health City Road</p>
+          <p><i class="fa fa-city"></i> Banjara Hills, Hyderabad</p>
+          <p><i class="fa fa-map"></i> Telangana – 500034, India</p>
+        </div>
+        <div class="map-container">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3806.3!2d78.4483!3d17.4126!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTfCsDI0JzQ1LjQiTiA3OMKwMjYnNTMuOSJF!5e0!3m2!1sen!2sin!4v1234567890"
+            width="100%" height="180" style="border:0;border-radius:8px;margin-top:12px" allowfullscreen loading="lazy">
+          </iframe>
+        </div>
+        <a href="https://maps.google.com/?q=Banjara+Hills+Hyderabad" target="_blank" class="btn" style="margin-top:10px;width:100%;justify-content:center">
+          <i class="fa fa-map-location-dot"></i> Get Directions
+        </a>
+      </div>
+    </div>
+
+    <!-- Social / Footer strip -->
+    <div class="home-footer-strip">
+      <span><i class="fa fa-copyright"></i> 2025 MediCare General Hospital. All rights reserved.</span>
+      <div class="social-links">
+        <a href="#"><i class="fa-brands fa-facebook"></i></a>
+        <a href="#"><i class="fa-brands fa-twitter"></i></a>
+        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+      </div>
+    </div>
+
+  </section>
+     <section id="dashboard" class="section">
+  <div class="kpi-grid">
+    <div class="card"><h3>Total Patients</h3><p>1,240</p></div>
+    <div class="card"><h3>Doctors</h3><p>86</p></div>
+    <div class="card"><h3>Appointments Today</h3><p>250</p></div>
+    <div class="card"><h3>Beds Available</h3><p>54</p></div>
+    <div class="card"><h3>Total Revenue</h3><p>₹40L</p></div>
+    <div class="card"><h3>Inventory Items</h3><p>50</p></div>
+  </div>
+
+  <div class="dashboard-feature-grid">
+    <div class="card">
+      <div class="section-header">
+        <h3>Today's Patient Queue</h3>
+        <span class="mini-pill">12 waiting</span>
+      </div>
+      <ul class="triage-list">
+        <li class="triage-item">
+          <div class="triage-meta">
+            <strong>David Lee</strong>
+            <span>Cardiac monitor • ICU follow-up</span>
+          </div>
+          <span class="triage-status critical">Critical</span>
+        </li>
+        <li class="triage-item">
+          <div class="triage-meta">
+            <strong>Bob Smith</strong>
+            <span>Hypertension review • Room 212</span>
+          </div>
+          <span class="triage-status review">Review</span>
+        </li>
+        <li class="triage-item">
+          <div class="triage-meta">
+            <strong>Alice Johnson</strong>
+            <span>Diabetes check • Dr. Patel</span>
+          </div>
+          <span class="triage-status stable">Stable</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="section-header">
+        <h3>Quick Actions</h3>
+        <span class="mini-pill warn">Live</span>
+      </div>
+      <div class="quick-action-grid">
+        <button class="action-tile blue" onclick="showSection('patients', document.querySelector('[onclick*=patients]'))"><i class="fa fa-user-plus"></i><span>Register</span></button>
+        <button class="action-tile green" onclick="showSection('appointments', document.querySelector('[onclick*=appointments]'))"><i class="fa fa-calendar-plus"></i><span>Book</span></button>
+        <button class="action-tile orange" onclick="showSection('billing', document.querySelector('[onclick*=billing]'))"><i class="fa fa-file-invoice"></i><span>Invoice</span></button>
+        <button class="action-tile purple" onclick="showSection('inventory', document.querySelector('[onclick*=inventory]'))"><i class="fa fa-boxes-stacked"></i><span>Restock</span></button>
+      </div>
+
+      <div class="task-input-row">
+        <input id="task-input" type="text" placeholder="Add a hospital task..." />
+        <button class="btn" id="add-task-btn"><i class="fa fa-plus"></i> Add</button>
+      </div>
+      <ul id="task-list"></ul>
+    </div>
+  </div>
+
+</section>
+
+  
+  <!-- Patients -->
+  <section id="patients" class="section">
+    <div class="card">
+      <div class="section-header">
+        <h3>Patient Records</h3>
+        <div style="display:flex;gap:8px">
+          <input class="filter-input" type="text" placeholder="Search patients..." oninput="filterTable('patient-table-body',this.value)"/>
+          <button class="btn" onclick="openModal('patient')"><i class="fa fa-plus"></i> Add Patient</button>
+        </div>
+      </div>
+      <table border="1">
+        <thead>
+          <tr>
+            <th>ID</th><th>Name</th><th>Age</th><th>Gender</th><th>Condition</th><th>Doctor</th> <th>Phone</th><th>Status</th> <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>P001</td><td>Alice Johnson</td><td>34</td><td>Female</th><td>Diabetes</td><td>Dr. Patel</td> <td>General</td><td>Stable</td>
+            <td><button>Edit</button> <button>Delete</button></td>
+          </tr>
+          <tr>
+            <td>P002</td>
+            <td>Bob Smith</td>
+            <td>52</td>
+            <td>Male</td>
+            <td>Hypertension</td>
+            <td>Dr. Kumar</td>
+            <td>General</td>
+            <td>Monitoring</td>
+            <td><button>Edit</button> <button>Delete</button></td>
+          </tr>
+          <tr>
+            <td>P003</td>
+            <td>Carol White</td>
+            <td>28</td>
+            <td>Female</td>
+            <td>Fracture</td>
+            <td>Dr. Singh</td>
+            <td>Ortho</td>
+            <td>Recovering</td>
+            <td><button>Edit</button> <button>Delete</button></td>
+          </tr>
+          <tr>
+            <td>P004</td>
+            <td>David Lee</td>
+            <td>67</td>
+            <td>Male</td>
+            <td>Cardiac Arrest</td>
+            <td>Dr. Mehta</td>
+            <td>ICU</td>
+            <td>Critical</td>
+            <td><button>Edit</button> <button>Delete</button></td>
+          </tr>
+        </tbody>
+        <tbody id="patient-table-body"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Doctors -->
+  <section id="doctors" class="section">
+    <div class="card">
+      <div class="section-header">
+        <h3>Doctor Directory</h3>
+        <div style="display:flex;gap:8px">
+          <input class="filter-input" type="text" placeholder="Search doctors..." oninput="filterTable('doctor-table-body',this.value)"/>
+          <button class="btn" onclick="openModal('doctor')"><i class="fa fa-plus"></i> Add Doctor</button>
+        </div>
+      </div>
+      <table>
+        <thead><tr><th>ID</th><th>Name</th><th>Specialization</th><th>Experience</th><th>Phone</th><th>Email</th><th>Status</th><th>Actions</th></tr></thead>
+        <tbody>
+    <tr>
+      <td>D001</td>
+      <td>Dr. Patel</td>
+      <td>Endocrinology</td>
+      <td>12 yrs</td>
+      <td>14</td>
+      <td>+91-9876543210</td>
+      <td>patel@endohospital.com</td>
+      <td>Available</td>
+      <td><button>Edit</button> <button>Delete</button></td>
+    </tr>
+    <tr>
+      <td>D002</td>
+      <td>Dr. Kumar</td>
+      <td>Cardiology</td>
+      <td>18 yrs</td>
+      <td>12</td>
+      <td>+91-9876543211</td>
+      <td>kumar@cardiohospital.com</td>
+      <td>Available</td>
+      <td><button>Edit</button> <button>Delete</button></td>
+    </tr>
+    <tr>
+      <td>D003</td>
+      <td>Dr. Singh</td>
+      <td>Orthopedics</td>
+      <td>9 yrs</td>
+      <td>0</td>
+      <td>+91-9876543212</td>
+      <td>singh@orthohospital.com</td>
+      <td>On Leave</td>
+      <td><button>Edit</button> <button>Delete</button></td>
+    </tr>
+    <tr>
+      <td>D004</td>
+      <td>Dr. Mehta</td>
+      <td>Cardiology</td>
+      <td>22 yrs</td>
+      <td>18</td>
+      <td>+91-9876543213</td>
+      <td>mehta@cardiohospital.com</td>
+      <td>Available</td>
+      <td><button>Edit</button> <button>Delete</button></td>
+    </tr>
+    <tr>
+      <td>D005</td>
+      <td>Dr. Sharma</td>
+      <td>Neurology</td>
+      <td>15 yrs</td>
+      <td>9</td>
+      <td>+91-9876543214</td>
+      <td>sharma@neurohospital.com</td>
+      <td>Available</td>
+      <td><button>Edit</button> <button>Delete</button></td>
+    </tr>
+  </tbody>
+        <tbody id="doctor-table-body"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Appointments -->
+  <section id="appointments" class="section">
+    <div class="card">
+      <div class="section-header">
+        <h3>Appointments</h3>
+        <div style="display:flex;gap:8px">
+          <input class="filter-input" type="text" placeholder="Search..." oninput="filterTable('appt-table-body',this.value)"/>
+          <button class="btn" onclick="openModal('appointment')"><i class="fa fa-plus"></i> Book Appointment</button>
+        </div>
+      </div>
+      <table border="1">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Patient</th>
+            <th>Doctor</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Type</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>A001</td>
+            <td>Alice Johnson</td>
+            <td>Dr. Patel</td>
+            <td>2026-05-27</td>
+            <td>10:00 AM</td>
+            <td>Consultation</td>
+            <td>Confirmed</td>
+            <td><button>Edit</button> <button>Cancel</button></td>
+          </tr>
+          <tr>
+            <td>A002</td>
+            <td>Bob Smith</td>
+            <td>Dr. Kumar</td>
+            <td>2026-05-27</td>
+            <td>11:30 AM</td>
+            <td>Follow-up</td>
+            <td>Pending</td>
+            <td><button>Edit</button> <button>Cancel</button></td>
+          </tr>
+          <tr>
+            <td>A003</td>
+            <td>Carol White</td>
+            <td>Dr. Singh</td>
+            <td>2026-05-28</td>
+            <td>02:00 PM</td>
+            <td>Surgery Review</td>
+            <td>Confirmed</td>
+            <td><button>Edit</button> <button>Cancel</button></td>
+          </tr>
+          <tr>
+            <td>A004</td>
+            <td>David Lee</td>
+            <td>Dr. Mehta</td>
+            <td>2026-05-28</td>
+            <td>04:00 PM</td>
+            <td>Emergency</td>
+            <td>Critical</td>
+            <td><button>Edit</button> <button>Cancel</button></td>
+          </tr>
+        </tbody>
+        <tbody id="appt-table-body"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Billing -->
+  <section id="billing" class="section">
+    <div class="card">
+      <div class="section-header">
+        <h3>Billing Records</h3>
+        <div style="display:flex;gap:8px">
+          <input class="filter-input" type="text" placeholder="Search..." oninput="filterTable('billing-table-body',this.value)"/>
+          <button class="btn" onclick="openModal('billing')"><i class="fa fa-plus"></i> New Invoice</button>
+        </div>
+      </div>
+      <table>
+        <thead><tr><th>Invoice</th><th>Patient</th><th>Date</th><th>Service</th><th>Amount</th><th>Status</th><th>Actions</th></tr></thead>
+        <tbody>
+    <tr>
+      <td>INV001</td>
+      <td>Alice Johnson</td>
+      <td>2026-05-25</td>
+      <td>Diabetes Consultation</td>
+      <td>₹1,200</td>
+      <td>Paid</td>
+      <td><button>View</button> <button>Edit</button></td>
+    </tr>
+    <tr>
+      <td>INV002</td>
+      <td>Bob Smith</td>
+      <td>2026-05-26</td>
+      <td>Cardiology Check-up</td>
+      <td>₹2,500</td>
+      <td>Pending</td>
+      <td><button>View</button> <button>Edit</button></td>
+    </tr>
+    <tr>
+      <td>INV003</td>
+      <td>Carol White</td>
+      <td>2026-05-26</td>
+      <td>Orthopedic Surgery Review</td>
+      <td>₹3,800</td>
+      <td>Paid</td>
+      <td><button>View</button> <button>Edit</button></td>
+    </tr>
+    <tr>
+      <td>INV004</td>
+      <td>David Lee</td>
+      <td>2026-05-27</td>
+      <td>Emergency ICU Service</td>
+      <td>₹7,500</td>
+      <td>Unpaid</td>
+      <td><button>View</button> <button>Edit</button></td>
+    </tr>
+  </tbody>
+        <tbody id="billing-table-body"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Inventory -->
+  <section id="inventory" class="section">
+    <div class="card">
+      <div class="section-header">
+        <h3>Medicine & Inventory</h3>
+        <div style="display:flex;gap:8px">
+          <input class="filter-input" type="text" placeholder="Search..." oninput="filterTable('inv-table-body',this.value)"/>
+          <button class="btn" onclick="openModal('inventory')"><i class="fa fa-plus"></i> Add Item</button>
+        </div>
+      </div>
+      <table>
+        <thead><tr><th>ID</th><th>Item Name</th><th>Category</th><th>Stock</th><th>Unit</th><th>Expiry</th><th>Status</th><th>Actions</th></tr></thead>
+        <tbody>
+    <tr>
+      <td>I001</td>
+      <td>Paracetamol</td>
+      <td>Medicine</td>
+      <td>120</td>
+      <td>Tablets</td>
+      <td>2027-03-15</td>
+      <td>Available</td>
+      <td><button>Edit</button> <button>Delete</button></td>
+    </tr>
+    <tr>
+      <td>I002</td>
+      <td>Syringe 5ml</td>
+      <td>Equipment</td>
+      <td>500</td>
+      <td>Pieces</td>
+      <td>—</td>
+      <td>Available</td>
+      <td><button>Edit</button> <button>Delete</button></td>
+    </tr>
+    <tr>
+      <td>I003</td>
+      <td>Bandage Roll</td>
+      <td>Supplies</td>
+      <td>200</td>
+      <td>Rolls</td>
+      <td>—</td>
+      <td>Low Stock</td>
+      <td><button>Edit</button> <button>Delete</button></td>
+    </tr>
+    <tr>
+      <td>I004</td>
+      <td>Insulin</td>
+      <td>Medicine</td>
+      <td>75</td>
+      <td>Vials</td>
+      <td>2026-12-10</td>
+      <td>Expiring Soon</td>
+      <td><button>Edit</button> <button>Delete</button></td>
+    </tr>
+    <tr>
+      <td>I005</td>
+      <td>Gloves</td>
+      <td>Protective Gear</td>
+      <td>300</td>
+      <td>Pairs</td>
+      <td>—</td>
+      <td>Available</td>
+      <td><button>Edit</button> <button>Delete</button></td>
+    </tr>
+  </tbody>
+        <tbody id="inv-table-body"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Reports -->
+  <section id="reports" class="section">
+    <div class="reports-grid">
+      <div class="card"><h3 class="report-title"><i class="fa fa-user-injured"></i> Patient Summary</h3><div id="report-patients"></div></div>
+      <div class="card"><h3 class="report-title"><i class="fa fa-dollar-sign"></i> Revenue Summary</h3><div id="report-revenue"></div></div>
+      <div class="card"><h3 class="report-title"><i class="fa fa-calendar-check"></i> Appointment Stats</h3><div id="report-appts"></div></div>
+      <div class="card"><h3 class="report-title"><i class="fa fa-boxes-stacked"></i> Inventory Stats</h3><div id="report-inv"></div></div>
+    </div>
+    <canvas id="patientsChart"></canvas>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const ctx = document.getElementById('patientsChart').getContext('2d');
+  const patientsChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Diabetes', 'Hypertension', 'Fracture', 'Cardiac'],
+      datasets: [{
+        label: 'Number of Patients',
+        data: [14, 12, 8, 6],
+        backgroundColor: ['#4caf50','#2196f3','#ff9800','#f44336']
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { display: false }
+      }
+    }
+  });
+</script>
+  </section>
+
+  <!-- Staff -->
+  <section id="staff" class="section">
+    <div class="card">
+      <div class="section-header">
+        <h3>Staff Management</h3>
+        <button class="btn" onclick="openModal('staff')"><i class="fa fa-plus"></i> Add Staff</button>
+      </div>
+      <table>
+        <thead><tr><th>ID</th><th>Name</th><th>Role</th><th>Department</th><th>Phone</th><th>Shift</th><th>Status</th><th>Actions</th></tr></thead>
+        
+  <tbody>
+    <tr>
+      <td>S001</td>
+      <td>John Davis</td>
+      <td>Nurse</td>
+      <td>General Ward</td>
+      <td>+91-9876543201</td>
+      <td>Morning</td>
+      <td>On Duty</td>
+      <td><button>Edit</button> <button>Delete</button></td>
+    </tr>
+    <tr>
+      <td>S002</td>
+      <td>Priya Sharma</td>
+      <td>Lab Technician</td>
+      <td>Pathology</td>
+      <td>+91-9876543202</td>
+      <td>Evening</td>
+      <td>On Duty</td>
+      <td><button>Edit</button> <button>Delete</button></td>
+    </tr>
+    <tr>
+      <td>S003</td>
+      <td>Michael Brown</td>
+      <td>Receptionist</td>
+      <td>Front Desk</td>
+      <td>+91-9876543203</td>
+      <td>Morning</td>
+      <td>Available</td>
+      <td><button>Edit</button> <button>Delete</button></td>
+    </tr>
+    <tr>
+      <td>S004</td> <td>Anjali Verma</td><td>Pharmacist</td> <td>Pharmacy</td><td>+91-9876543204</td><td>Night</td><td>On Duty</td><td><button>Edit</button> <button>Delete</button></td>
+    </tr>
+    <tr>
+      <td>S005</td><td>David Wilson</td> <td>Security</td><td>Administration</td><td>+91-9876543205</td><td>Night</td><td>Available</td><td><button>Edit</button> <button>Delete</button></td>
+    </tr>
+  </tbody>
+        <tbody id="staff-table-body"></tbody>
+      </table>
+    </div>
+  </section>
+</div>
+
+<!-- Modal -->
+<div id="modal" class="modal-overlay" onclick="closeModalOverlay(event)">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h3 id="modal-title">Add Record</h3>
+      <button class="modal-close" onclick="closeModal()"><i class="fa fa-xmark"></i></button>
+    </div>
+    <div id="modal-body"></div>
+    <div class="modal-actions">
+      <button id="modal-save-btn" class="btn" onclick="saveRecord()"><i class="fa fa-save"></i> Save</button>
+      <button class="btn btn-outline" onclick="closeModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- AI Chatbox -->
+<div id="chat-widget">
+  <div id="chat-header" onclick="toggleChat()">
+    <i class="fa fa-robot"></i> MediBot AI
+    <span class="chat-online">● Online</span>
+    <span id="chat-toggle-icon" style="margin-left:auto">▲</span>
+  </div>
+  <div id="chat-body">
+    <div id="chat-messages">
+      <div class="msg bot">👋 Hi! I'm🤗 <strong>MediBot</strong>. Ask me about patients, doctors, appointments, inventory, billing, or any hospital info!</div>
+    </div>
+    <div class="quick-replies" id="quick-replies">
+      <button onclick="quickAsk('How many patients?')">Patients</button>
+      <button onclick="quickAsk('Show doctors')">Doctors</button>
+      <button onclick="quickAsk('Appointments today')">Appointments</button>
+      <button onclick="quickAsk('Low stock items')">Inventory</button>
+    </div>
+    <div id="chat-input-area">
+      <input type="text" id="chat-input" placeholder="Type a message..." onkeydown="if(event.key==='Enter')sendMessage()"/>
+      <button onclick="sendMessage()"><i class="fa fa-paper-plane"></i></button>
+    </div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+<script>
+  // Auth guard
+  (function() {
+    const u = JSON.parse(localStorage.getItem('hms_user') || '{}');
+    if (!u.role) window.location.replace('login.html');
+    const nameEl = document.getElementById('user-name');
+    if (nameEl) nameEl.textContent = u.name || 'Admin';
+  })();
+</script>
+</body>
+</html>

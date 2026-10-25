@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Doctor Portal — MediCare HMS</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="shared.css"/>
+</head>
+<body>
+
+<div class="sidebar" style="background:#1b4332">
+  <div class="logo"><i class="fa fa-user-doctor"></i> Doctor Portal</div>
+  <nav>
+    <a href="#" class="active" onclick="show('overview',this)"><i class="fa fa-gauge"></i><span>My Dashboard</span></a>
+    <a href="#" onclick="show('my-patients',this)"><i class="fa fa-user-injured"></i><span>My Patients</span></a>
+    <a href="#" onclick="show('my-appointments',this)"><i class="fa fa-calendar-check"></i><span>Appointments</span></a>
+    <a href="#" onclick="show('prescriptions',this)"><i class="fa fa-prescription-bottle-medical"></i><span>Prescriptions</span></a>
+    <a href="#" onclick="show('medical-notes',this)"><i class="fa fa-notes-medical"></i><span>Medical Notes</span></a>
+    <a href="#" onclick="show('lab-results',this)"><i class="fa fa-microscope"></i><span>Lab Results</span></a>
+    <a href="#" onclick="show('schedule',this)"><i class="fa fa-calendar-days"></i><span>My Schedule</span></a>
+    <a href="index.html"><i class="fa fa-hospital"></i><span>Main HMS</span></a>
+  </nav>
+  <div class="sidebar-footer">
+    <a href="logout.html"><i class="fa fa-right-from-bracket"></i><span>Logout</span></a>
+  </div>
+</div>
+
+<div class="main">
+  <header>
+    <div class="header-left">
+      <h2 id="page-title">My Dashboard</h2>
+      <div class="live-clock" id="clock"></div>
+    </div>
+    <div class="header-right">
+      <div class="role-badge doctor-badge"><i class="fa fa-stethoscope"></i> Doctor</div>
+      <div class="user-chip"><i class="fa fa-circle-user"></i> <span id="doc-name">Dr. Sharma</span></div>
+      <a href="logout.html" class="btn btn-sm-red"><i class="fa fa-right-from-bracket"></i> Logout</a>
+    </div>
+  </header>
+
+  <!-- Overview -->
+  <section id="overview" class="section active">
+    <div class="stats-grid-4">
+      <div class="stat-card green"><i class="fa fa-user-injured"></i><div><h3>12</h3><p>My Patients Today</p></div></div>
+      <div class="stat-card blue"><i class="fa fa-calendar-check"></i><div><h3>8</h3><p>Appointments Left</p></div></div>
+      <div class="stat-card orange"><i class="fa fa-prescription-bottle-medical"></i><div><h3>5</h3><p>Pending Prescriptions</p></div></div>
+      <div class="stat-card red"><i class="fa fa-triangle-exclamation"></i><div><h3>2</h3><p>Critical Patients</p></div></div>
+    </div>
+
+    <div class="grid-2">
+      <!-- Today's Schedule -->
+      <div class="card">
+        <h3><i class="fa fa-clock"></i> Today's Schedule</h3>
+        <div class="schedule-list">
+          <div class="sch-item done"><div class="sch-time">08:00</div><div class="sch-info"><strong>Alice Johnson</strong><span>Diabetes Follow-up</span></div><span class="badge green">Done</span></div>
+          <div class="sch-item done"><div class="sch-time">09:00</div><div class="sch-info"><strong>Bob Smith</strong><span>Hypertension Check</span></div><span class="badge green">Done</span></div>
+          <div class="sch-item current"><div class="sch-time">10:30</div><div class="sch-info"><strong>Carol White</strong><span>Post-op Review</span></div><span class="badge blue">In Progress</span></div>
+          <div class="sch-item"><div class="sch-time">11:30</div><div class="sch-info"><strong>David Lee</strong><span>Cardiac Monitoring</span></div><span class="badge orange">Upcoming</span></div>
+          <div class="sch-item"><div class="sch-time">02:00</div><div class="sch-info"><strong>Eva Brown</strong><span>Asthma Consultation</span></div><span class="badge orange">Upcoming</span></div>
+          <div class="sch-item"><div class="sch-time">03:30</div><div class="sch-info"><strong>Frank Wilson</strong><span>New Patient</span></div><span class="badge orange">Upcoming</span></div>
+        </div>
+      </div>
+
+      <!-- Critical Patients -->
+      <div class="card">
+        <h3><i class="fa fa-triangle-exclamation"></i> Critical Patients</h3>
+        <div class="critical-list">
+          <div class="critical-item">
+            <div class="critical-avatar red">DL</div>
+            <div class="critical-info">
+              <strong>David Lee, 67</strong>
+              <span>Cardiac Arrest — ICU Bed 3</span>
+              <div class="vitals"><span>BP: 160/100</span><span>HR: 110</span><span>SpO2: 94%</span></div>
+            </div>
+            <span class="badge red">Critical</span>
+          </div>
+          <div class="critical-item">
+            <div class="critical-avatar orange">BS</div>
+            <div class="critical-info">
+              <strong>Bob Smith, 52</strong>
+              <span>Hypertension — Ward B</span>
+              <div class="vitals"><span>BP: 150/95</span><span>HR: 95</span><span>SpO2: 97%</span></div>
+            </div>
+            <span class="badge orange">Monitoring</span>
+          </div>
+        </div>
+
+        <h3 style="margin-top:20px"><i class="fa fa-bell"></i> Notifications</h3>
+        <div class="notif-simple">
+          <div class="ns-item"><i class="fa fa-flask red-icon"></i> Lab results ready for Alice Johnson</div>
+          <div class="ns-item"><i class="fa fa-pills orange-icon"></i> Prescription renewal due — Bob Smith</div>
+          <div class="ns-item"><i class="fa fa-calendar blue-icon"></i> 3 new appointments booked for tomorrow</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- My Patients -->
+  <section id="my-patients" class="section">
+    <div class="card">
+      <div class="section-header">
+        <h3><i class="fa fa-user-injured"></i> My Patients</h3>
+        <input class="filter-input" placeholder="Search patients..." oninput="filterTbl('pt-body',this.value)"/>
+      </div>
+      <table>
+        <thead><tr><th>ID</th><th>Name</th><th>Age</th><th>Condition</th><th>Last Visit</th><th>Next Appt</th><th>Status</th><th>Actions</th></tr></thead>
+        <tbody id="pt-body">
+          <tr><td>P001</td><td>Alice Johnson</td><td>34</td><td>Diabetes Type 2</td><td>2025-07-10</td><td>2025-07-20</td><td><span class="badge green">Stable</span></td><td><button class="btn-icon blue" onclick="viewPatient('Alice Johnson')"><i class="fa fa-eye"></i></button> <button class="btn-icon green"><i class="fa fa-prescription-bottle-medical"></i></button></td></tr>
+          <tr><td>P002</td><td>Bob Smith</td><td>52</td><td>Hypertension</td><td>2025-07-11</td><td>2025-07-15</td><td><span class="badge orange">Monitoring</span></td><td><button class="btn-icon blue" onclick="viewPatient('Bob Smith')"><i class="fa fa-eye"></i></button> <button class="btn-icon green"><i class="fa fa-prescription-bottle-medical"></i></button></td></tr>
+          <tr><td>P003</td><td>Carol White</td><td>28</td><td>Fracture — Left Arm</td><td>2025-07-12</td><td>2025-07-16</td><td><span class="badge blue">Recovering</span></td><td><button class="btn-icon blue" onclick="viewPatient('Carol White')"><i class="fa fa-eye"></i></button> <button class="btn-icon green"><i class="fa fa-prescription-bottle-medical"></i></button></td></tr>
+          <tr><td>P004</td><td>David Lee</td><td>67</td><td>Cardiac Arrest</td><td>2025-07-13</td><td>Today</td><td><span class="badge red">Critical</span></td><td><button class="btn-icon blue" onclick="viewPatient('David Lee')"><i class="fa fa-eye"></i></button> <button class="btn-icon green"><i class="fa fa-prescription-bottle-medical"></i></button></td></tr>
+          <tr><td>P005</td><td>Eva Brown</td><td>45</td><td>Asthma</td><td>2025-07-08</td><td>2025-07-15</td><td><span class="badge green">Stable</span></td><td><button class="btn-icon blue" onclick="viewPatient('Eva Brown')"><i class="fa fa-eye"></i></button> <button class="btn-icon green"><i class="fa fa-prescription-bottle-medical"></i></button></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Appointments -->
+  <section id="my-appointments" class="section">
+    <div class="card">
+      <div class="section-header"><h3><i class="fa fa-calendar-check"></i> My Appointments</h3></div>
+      <table>
+        <thead><tr><th>Time</th><th>Patient</th><th>Age</th><th>Type</th><th>Reason</th><th>Status</th><th>Actions</th></tr></thead>
+        <tbody>
+          <tr><td>08:00 AM</td><td>Alice Johnson</td><td>34</td><td>Follow-up</td><td>Diabetes Review</td><td><span class="badge green">Completed</span></td><td><button class="btn-icon blue"><i class="fa fa-notes-medical"></i></button></td></tr>
+          <tr><td>09:00 AM</td><td>Bob Smith</td><td>52</td><td>Check-up</td><td>BP Monitoring</td><td><span class="badge green">Completed</span></td><td><button class="btn-icon blue"><i class="fa fa-notes-medical"></i></button></td></tr>
+          <tr><td>10:30 AM</td><td>Carol White</td><td>28</td><td>Post-op</td><td>Fracture Review</td><td><span class="badge blue">In Progress</span></td><td><button class="btn-icon blue"><i class="fa fa-notes-medical"></i></button></td></tr>
+          <tr><td>11:30 AM</td><td>David Lee</td><td>67</td><td>Emergency</td><td>Cardiac Monitoring</td><td><span class="badge orange">Upcoming</span></td><td><button class="btn-icon blue"><i class="fa fa-notes-medical"></i></button></td></tr>
+          <tr><td>02:00 PM</td><td>Eva Brown</td><td>45</td><td>Consultation</td><td>Asthma</td><td><span class="badge orange">Upcoming</span></td><td><button class="btn-icon blue"><i class="fa fa-notes-medical"></i></button></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Prescriptions -->
+  <section id="prescriptions" class="section">
+    <div class="card">
+      <div class="section-header">
+        <h3><i class="fa fa-prescription-bottle-medical"></i> Prescriptions</h3>
+        <button class="btn" onclick="newPrescription()"><i class="fa fa-plus"></i> New Prescription</button>
+      </div>
+      <table>
+        <thead><tr><th>Rx ID</th><th>Patient</th><th>Medicine</th><th>Dosage</th><th>Duration</th><th>Date</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>RX001</td><td>Alice Johnson</td><td>Metformin 500mg</td><td>1-0-1</td><td>30 days</td><td>2025-07-10</td><td><span class="badge green">Active</span></td></tr>
+          <tr><td>RX002</td><td>Bob Smith</td><td>Amlodipine 5mg</td><td>0-0-1</td><td>60 days</td><td>2025-07-11</td><td><span class="badge green">Active</span></td></tr>
+          <tr><td>RX003</td><td>Carol White</td><td>Ibuprofen 400mg</td><td>1-1-1</td><td>7 days</td><td>2025-07-12</td><td><span class="badge orange">Expiring</span></td></tr>
+          <tr><td>RX004</td><td>David Lee</td><td>Aspirin 75mg + Atorvastatin</td><td>1-0-1</td><td>90 days</td><td>2025-07-13</td><td><span class="badge green">Active</span></td></tr>
+          <tr><td>RX005</td><td>Eva Brown</td><td>Salbutamol Inhaler</td><td>As needed</td><td>Ongoing</td><td>2025-07-08</td><td><span class="badge green">Active</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Medical Notes -->
+  <section id="medical-notes" class="section">
+    <div class="card">
+      <div class="section-header">
+        <h3><i class="fa fa-notes-medical"></i> Medical Notes</h3>
+        <button class="btn"><i class="fa fa-plus"></i> Add Note</button>
+      </div>
+      <div class="notes-grid">
+        <div class="note-card"><div class="note-header"><strong>Alice Johnson</strong><span>2025-07-10</span></div><p>Patient's HbA1c improved to 7.2%. Continue Metformin. Advised dietary changes and 30 min daily walk. Next review in 4 weeks.</p><div class="note-tags"><span class="badge blue">Diabetes</span><span class="badge green">Improving</span></div></div>
+        <div class="note-card"><div class="note-header"><strong>Bob Smith</strong><span>2025-07-11</span></div><p>BP reading 150/95. Increased Amlodipine to 10mg. Patient advised to reduce salt intake and monitor BP daily. Stress ECG ordered.</p><div class="note-tags"><span class="badge orange">Hypertension</span><span class="badge orange">Monitoring</span></div></div>
+        <div class="note-card"><div class="note-header"><strong>Carol White</strong><span>2025-07-12</span></div><p>Post-op day 5. Fracture healing well. X-ray shows good alignment. Physiotherapy started. Pain managed with Ibuprofen. Cast to remain for 3 more weeks.</p><div class="note-tags"><span class="badge blue">Fracture</span><span class="badge blue">Post-op</span></div></div>
+        <div class="note-card red-note"><div class="note-header"><strong>David Lee</strong><span>2025-07-13</span></div><p>Patient admitted with acute MI. Angioplasty performed. Currently in ICU on continuous monitoring. Troponin levels elevated. Family informed.</p><div class="note-tags"><span class="badge red">Critical</span><span class="badge red">ICU</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lab Results -->
+  <section id="lab-results" class="section">
+    <div class="card">
+      <div class="section-header"><h3><i class="fa fa-microscope"></i> Lab Results</h3></div>
+      <table>
+        <thead><tr><th>Test ID</th><th>Patient</th><th>Test</th><th>Result</th><th>Normal Range</th><th>Date</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>L001</td><td>Alice Johnson</td><td>HbA1c</td><td>7.2%</td><td>4–5.6%</td><td>2025-07-10</td><td><span class="badge orange">High</span></td></tr>
+          <tr><td>L002</td><td>Bob Smith</td><td>Lipid Profile</td><td>LDL: 145</td><td>&lt;100 mg/dL</td><td>2025-07-11</td><td><span class="badge red">Abnormal</span></td></tr>
+          <tr><td>L003</td><td>Carol White</td><td>CBC</td><td>Normal</td><td>—</td><td>2025-07-12</td><td><span class="badge green">Normal</span></td></tr>
+          <tr><td>L004</td><td>David Lee</td><td>Troponin I</td><td>2.4 ng/mL</td><td>&lt;0.04 ng/mL</td><td>2025-07-13</td><td><span class="badge red">Critical</span></td></tr>
+          <tr><td>L005</td><td>Eva Brown</td><td>Spirometry</td><td>FEV1: 68%</td><td>&gt;80%</td><td>2025-07-08</td><td><span class="badge orange">Low</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Schedule -->
+  <section id="schedule" class="section">
+    <div class="grid-2">
+      <div class="card">
+        <h3><i class="fa fa-calendar-days"></i> Weekly Schedule</h3>
+        <table>
+          <thead><tr><th>Day</th><th>OPD Hours</th><th>Ward Rounds</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>Monday</td><td>9AM – 1PM</td><td>3PM – 5PM</td><td><span class="badge green">Working</span></td></tr>
+            <tr><td>Tuesday</td><td>9AM – 1PM</td><td>3PM – 5PM</td><td><span class="badge green">Working</span></td></tr>
+            <tr><td>Wednesday</td><td>9AM – 1PM</td><td>—</td><td><span class="badge green">Working</span></td></tr>
+            <tr><td>Thursday</td><td>9AM – 1PM</td><td>3PM – 5PM</td><td><span class="badge green">Working</span></td></tr>
+            <tr><td>Friday</td><td>9AM – 12PM</td><td>2PM – 4PM</td><td><span class="badge green">Working</span></td></tr>
+            <tr><td>Saturday</td><td>9AM – 12PM</td><td>—</td><td><span class="badge blue">Half Day</span></td></tr>
+            <tr><td>Sunday</td><td>—</td><td>—</td><td><span class="badge orange">Off</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card">
+        <h3><i class="fa fa-circle-info"></i> My Profile</h3>
+        <div class="doc-profile">
+          <div class="doc-avatar">DS</div>
+          <div class="doc-details">
+            <h4 id="doc-profile-name">Dr. Sharma</h4>
+            <p><i class="fa fa-stethoscope"></i> Neurology</p>
+            <p><i class="fa fa-award"></i> 15 Years Experience</p>
+            <p><i class="fa fa-graduation-cap"></i> MBBS, MD (Neurology)</p>
+            <p><i class="fa fa-phone"></i> +91 800-555-0102</p>
+            <p><i class="fa fa-envelope"></i> sharma@medicare.com</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- AI Chatbox -->
+<div id="chat-widget">
+  <div id="chat-header" onclick="toggleChat()"><i class="fa fa-robot"></i> MediBot AI <span style="margin-left:auto" id="ctoggle">▲</span></div>
+  <div id="chat-body">
+    <div id="chat-messages"><div class="msg bot">👋 Hello Doctor! I can help with patient info, drug interactions, lab results, and schedules.</div></div>
+    <div id="chat-input-area">
+      <input type="text" id="chat-input" placeholder="Ask anything..." onkeydown="if(event.key==='Enter')sendMsg()"/>
+      <button onclick="sendMsg()"><i class="fa fa-paper-plane"></i></button>
+    </div>
+  </div>
+</div>
+
+<script src="shared.js"></script>
+<script>
+  const u = JSON.parse(localStorage.getItem('hms_user')||'{}');
+  if (!u.role) window.location.replace('login.html');
+  if (u.role !== 'doctor') window.location.replace(u.role === 'admin' ? 'admin.html' : 'receptionist.html');
+  document.getElementById('doc-name').textContent = u.name || 'Dr. Sharma';
+  document.getElementById('doc-profile-name').textContent = u.name || 'Dr. Sharma';
+
+  function show(id, el) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    document.getElementById('page-title').textContent = el ? el.querySelector('span').textContent : id;
+    if(el) el.classList.add('active');
+  }
+  function viewPatient(name){ alert('Viewing full record for: ' + name); }
+  function newPrescription(){ alert('New prescription form — connect to your backend'); }
+  function filterTbl(id, val) {
+    document.querySelectorAll('#'+id+' tr').forEach(r => {
+      r.style.display = r.textContent.toLowerCase().includes(val.toLowerCase()) ? '' : 'none';
+    });
+  }
+</script>
+</body>
+</html>
